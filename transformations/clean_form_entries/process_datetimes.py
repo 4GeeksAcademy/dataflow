@@ -11,12 +11,12 @@ expected_input = [{
 }]
 
 expected_output = [{
-    'created_at': pd.to_datetime('2020-11-28 07:46:58'),
-    'updated_at': pd.to_datetime('2020-11-28 07:46:58'),
-    'won_at': pd.to_datetime('2020-11-28 07:46:58'),
+    'created_at': pd.to_datetime('2021-11-21 21:32:04'),
+    'updated_at': pd.to_datetime('2022-05-26 20:03:15'),
+    'won_at': pd.to_datetime('2022-05-26 20:03:09'),
     'year-month': pd.to_datetime('2020-11-28 07:46:58').strftime('%Y-%m'),
     'created_time': pd.to_datetime('2020-11-28 07:46:58').strftime('%H:%M:%S'),
-    'days_to_convert': (pd.to_datetime(df['won_at']) - pd.to_datetime(df['created_at'])).dt.days.abs()
+    'days_to_convert': '185'
 }]
 
 

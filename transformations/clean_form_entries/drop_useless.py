@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime
 
 from utils import build_features as features
-from constants import TO_DROP
+from utils.constants import TO_DROP
 
 expected_input = [{
     'first_name': 'Maria',
