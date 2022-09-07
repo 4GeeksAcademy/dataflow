@@ -5,13 +5,25 @@ from datetime import datetime
 from utils import build_features as features
 
 expected_input = [{
-    'email': '',
-    'created_at':''
+    'email': 'daniela@gmail.com',
+    'created_at':'2021-11-21 16:10:04.837967+00:00'
+}, {
+    'email': 'daniela@gmail.com',
+    'created_at':'2020-10-20 21:45:03.837967+00:00'
+}, {
+    'email': 'daniela@gmail.com',
+    'created_at':'2021-11-11 13:32:04.837967+00:00'
+}, {
+    'email': 'alejandro@gmail.com',
+    'created_at':'2019-12-11 13:29:23.837967+00:00'
 }]
 
 expected_output = [{
-    'email': '',
-    'created_at':''
+    'email': 'daniela@gmail.com',
+    'created_at':'2020-10-20 21:45:03.837967+00:00'
+}, {
+    'email': 'alejandro@gmail.com',
+    'created_at':'2019-12-11 13:29:23.837967+00:00'
 }]
 
 

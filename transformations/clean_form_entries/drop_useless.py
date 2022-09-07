@@ -6,11 +6,18 @@ from utils import build_features as features
 from constants import TO_DROP
 
 expected_input = [{
-    'first_name': 'Maria'
+    'first_name': 'Maria',
+    'email': 'maria@gmail.com',
+    'language':'en'
+}, {
+    'first_name': 'Alejandra',
+    'email': 'alejandra@4geeks.co',
+    'language':'en'
 }]
 
 expected_output = [{
-
+    'email': 'maria@gmail.com',
+    'language':'en'
 }]
 
 
