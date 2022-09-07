@@ -7,26 +7,43 @@ import traceback
 
 from colorama import Fore, Back, Style
 from utils.core import (
-    load_pipelines_from_project, get_params, get_transformation, scan_for_pipelines, 
+    load_pipelines_from_project, get_params, get_transformation, scan_for_pipelines,
     scan_pipeline_transformations
 )
 from deepdiff import DeepDiff
 
-def clean_df(df):
+
+def to_df(df):
     if isinstance(df, list):
-        return pd.DataFrame(df, index=[0])
-    elif isinstance(_in, pd.DataFrame):
+        try:
+            return pd.DataFrame(df)
+        except Exception as e:
+            print(df)
+            raise e
+    elif isinstance(df, pd.DataFrame):
         return df
     else:
-        raise Exception(f'Invalid type {type(df)} for variable expected_input (expected list or DataFrame)')
+        raise Exception(
+            f'Invalid type {type(df)} for variable "expected_input" or "ouput" (expected list or DataFrame)')
+
+
+def lo_list(df):
+    if isinstance(df, list):
+        return df
+    elif isinstance(df, pd.DataFrame):
+        return df.to_dict('records')
+    else:
+        raise Exception(
+            f'Invalid type {type(df)} for variable "expected_input" or "ouput" (expected list or DataFrame)')
+
 
 def validate_trans(q, t, _errors):
     try:
         run, _in, _out = get_transformation(q, t)
-        output = run(clean_df(_in)).to_dict('records')
+        output = run(to_df(_in)).to_dict('records')
 
-        in_out_same = DeepDiff(_in, _out)
-        diff = DeepDiff(output, _out)
+        in_out_same = DeepDiff(lo_list(_in), lo_list(_out))
+        diff = DeepDiff(lo_list(output), lo_list(_out))
     except Exception as e:
         _errors[q + '.' + t] = e
 
@@ -65,11 +82,14 @@ if len(errors) > 0:
         count += 1
         print(Fore.RED + f'{count}) In {e}: ', end='')
         print(errors[e])
-        if not isinstance(errors[e], str): traceback.print_exception(type(errors[e]), errors[e], errors[e].__traceback__)
+        if not isinstance(errors[e], str):
+            traceback.print_exception(
+                type(errors[e]), errors[e], errors[e].__traceback__)
 
     print(Style.RESET_ALL + '\n')
     exit(1)
 else:
-    print(Back.GREEN + f'Report: All {len(pipelines)} transformations return the expected outputs 🙂', end='')
+    print(Back.GREEN +
+          f'Report: All {len(pipelines)} transformations return the expected outputs 🙂', end='')
     print(Style.RESET_ALL)
     exit(0)
