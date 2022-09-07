@@ -12,16 +12,18 @@ from utils.core import (
 )
 from deepdiff import DeepDiff
 
+def clean_df(df):
+    if isinstance(df, list):
+        return pd.DataFrame(df, index=[0])
+    elif isinstance(_in, pd.DataFrame):
+        return df
+    else:
+        raise Exception(f'Invalid type {type(df)} for variable expected_input (expected list or DataFrame)')
 
 def validate_trans(q, t, _errors):
     try:
         run, _in, _out = get_transformation(q, t)
-        if isinstance(_in, list):
-            output = run(pd.DataFrame(_in, index=[0])).to_dict('records')
-        elif isinstance(_id, pd.DataFrame):
-            output = run(_in).to_dict('records')
-        else:
-            raise Exception(f'Invalid type {type(_id)} for variable expected_input (expected list or DataFrame)')
+        output = run(clean_df(_in)).to_dict('records')
 
         in_out_same = DeepDiff(_in, _out)
         diff = DeepDiff(output, _out)
