@@ -10,7 +10,6 @@ expected_input = [{
     'language': 'us',
     'utm_source':'4geeks',
     'utm_medium':'rrss'
-
 }]
 
 expected_output = [{

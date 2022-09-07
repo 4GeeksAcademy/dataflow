@@ -10,6 +10,8 @@ expected_input = [{
 }]
 
 expected_output = [{
+    'first_name': 'Maria',
+    'last_name': 'Smith',
     'fullname': 'Maria Smith'
 }]
 
@@ -26,6 +28,6 @@ def run(df):
 
     # shift column 'Fullname' to third position
     fourth_column = df.pop('fullname')
-    df.insert(3, 'fullname', fourth_column)
+    df.insert(2, 'fullname', fourth_column)
 
     return df

@@ -36,5 +36,6 @@ def run(df):
 
     #remove duplicated rows by combining them considering the first creation date
     df = features.remove_duplicates(df)
+    print('Combine Duplicates', df.head())
 
     return df

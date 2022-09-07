@@ -2,6 +2,8 @@ import random
 import sys
 import pandas as pd
 import os
+import traceback
+
 
 from colorama import Fore, Back, Style
 from utils.core import (
@@ -56,6 +58,7 @@ if len(errors) > 0:
         count += 1
         print(Fore.RED + f'{count}) In {e}: ', end='')
         print(errors[e])
+        if not isinstance(errors[e], str): traceback.print_exception(type(errors[e]), errors[e], errors[e].__traceback__)
 
     print(Style.RESET_ALL + '\n')
     exit(1)

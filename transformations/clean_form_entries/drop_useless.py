@@ -5,19 +5,15 @@ from datetime import datetime
 from utils import build_features as features
 from utils.constants import TO_DROP
 
-expected_input = [{
-    'first_name': 'Maria',
-    'email': 'maria@gmail.com',
-    'language':'en'
-}, {
-    'first_name': 'Alejandra',
-    'email': 'alejandra@4geeks.co',
-    'language':'en'
-}]
+expected_input = pd.DataFrame({
+    'ac_contact_id' : ["John","Deep","Julia","Kate","Sandy"], 
+    'email': ['a@4geeks.co', 'a@gmail.com', 'b@gmail.com','c@gmail.com','d@gmail.com'],
+    'ids':[None,None,None,None,None]
+    }).to_dict('records')
+
 
 expected_output = [{
-    'email': 'maria@gmail.com',
-    'language':'en'
+    'email': ['a@gmail.com', 'b@gmail.com','c@gmail.com','d@gmail.com'],
 }]
 
 
