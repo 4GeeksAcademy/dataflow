@@ -8,15 +8,13 @@ from utils import build_features as features
 created_dates= ['2021-11-21','2020-10-20','2018-11-11','2019-12-11']
 emails= ['daniela@gmail.com', 'daniela@gmail.com', 'maria@gmail.com', 'daniela@gmail.com']
 has_gclid= [0,0,1,1] 
-    
-  
 # dictionary of lists 
 dict = {'email':emails, 'created_at':created_dates,'has_gclid':has_gclid} 
 
 #expected input as dataframe
 expected_input = pd.DataFrame(dict)
 
-#result values
+#Output
 output_dates = ['2019-12-11', '2018-11-11']
 output_emails = ['daniela@gmail.com','maria@gmail.com']
 output_gclids= [1,1]
