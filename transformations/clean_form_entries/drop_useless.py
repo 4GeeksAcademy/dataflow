@@ -26,8 +26,7 @@ first_name= ['ab','ba','cb','bc']
 last_name= ['ab','ba','cb','bc'] 
 ids= [None, None, None, None] 
 emails= ['a@4geeks.co', 'd@gmail.com', 'b@4geeksacademy.com', 'c@gmail.com']
-    
-  
+ 
 # dictionary of lists 
 dict = {'phone': ph,'client_comments':cmts,'street_address':adrs,'city':cty,'latitude':ltde,'longitude':lgde,'state':state,
                   'zip_code':zip,'referral_key':key,'browser_lang':lang,'ac_expected_cohort':ac_cohort,'current_download':download,
@@ -37,7 +36,7 @@ dict = {'phone': ph,'client_comments':cmts,'street_address':adrs,'city':cty,'lat
 #expected input as dataframe
 expected_input = pd.DataFrame(dict)
 
-#result values
+#values for Output
 output_emails = ['d@gmail.com', 'c@gmail.com']
 
 #expected output

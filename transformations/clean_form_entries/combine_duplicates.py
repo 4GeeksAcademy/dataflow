@@ -14,7 +14,7 @@ dict = {'email':emails, 'created_at':created_dates,'has_gclid':has_gclid}
 #expected input as dataframe
 expected_input = pd.DataFrame(dict)
 
-#Output
+#values for Output
 output_dates = ['2019-12-11', '2018-11-11']
 output_emails = ['daniela@gmail.com','maria@gmail.com']
 output_gclids= [1,1]
