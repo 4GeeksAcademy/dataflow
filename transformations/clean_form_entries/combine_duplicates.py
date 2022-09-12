@@ -4,28 +4,25 @@ from datetime import datetime
 
 from utils import build_features as features
 
-expected_input = [{
-    'email': 'daniela@gmail.com',
-    'created_at': '2021-11-21 16:10:04.837967+00:00'
-}, {
-    'email': 'daniela@gmail.com',
-    'created_at': '2020-10-20 21:45:03.837967+00:00'
-}, {
-    'email': 'daniela@gmail.com',
-    'created_at': '2021-11-11 13:32:04.837967+00:00'
-}, {
-    'email': 'alejandro@gmail.com',
-    'created_at': '2019-12-11 13:29:23.837967+00:00'
-}]
+# list of values in columns
+created_dates= ['2021-11-21','2020-10-20','2018-11-11','2019-12-11']
+emails= ['daniela@gmail.com', 'daniela@gmail.com', 'maria@gmail.com', 'daniela@gmail.com']
+has_gclid= [0,0,1,1] 
+    
+  
+# dictionary of lists 
+dict = {'email':emails, 'created_at':created_dates,'has_gclid':has_gclid} 
 
-expected_output = [{
-    'email': 'daniela@gmail.com',
-    'created_at': '2020-10-20 21:45:03.837967+00:00'
-}, {
-    'email': 'alejandro@gmail.com',
-    'created_at': '2019-12-11 13:29:23.837967+00:00'
-}]
+#expected input as dataframe
+expected_input = pd.DataFrame(dict)
 
+#result values
+output_dates = ['2019-12-11', '2018-11-11']
+output_emails = ['daniela@gmail.com','maria@gmail.com']
+output_gclids= [1,1]
+
+#expected output
+expected_output = pd.DataFrame({'email':output_emails,'created_at':output_dates, 'has_gclid':output_gclids})
 
 def run(df):
     """

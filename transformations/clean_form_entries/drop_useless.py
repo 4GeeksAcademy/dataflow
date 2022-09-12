@@ -5,23 +5,44 @@ from datetime import datetime
 from utils import build_features as features
 from utils.constants import TO_DROP
 
-temporal_dict = {}
-for x in TO_DROP:
-    temporal_dict[x] = 1
-expected_input = pd.DataFrame({
-    'ac_contact_id': ["John", "Deep", "Julia", "Kate", "Sandy"],
-    'email': ['a@4geeks.co', 'a@gmail.com', 'b@gmail.com', 'c@gmail.com', 'd@gmail.com'],
-    'ids': [None, None, None, None, None],
-    # 'utm_source':['fintech','ticjob','ticjob','ticjob','ticjob'],
-    **temporal_dict
-})
+# list of values in columns
+ph= ['ab','ba','cb','bc'] 
+cmts= ['ab','ba','cb','bc'] 
+adrs= ['ab','ba','cb','bc'] 
+cty= ['ab','ba','cb','bc'] 
+ltde= ['ab','ba','cb','bc'] 
+lgde= ['ab','ba','cb','bc']  
+state= ['ab','ba','cb','bc'] 
+zip= ['ab','ba','cb','bc']  
+key= ['ab','ba','cb','bc']  
+lang= ['ab','ba','cb','bc']  
+ac_cohort= ['ab','ba','cb','bc']  
+download= ['ab','ba','cb','bc'] 
+utm_content= ['ab','ba','cb','bc'] 
+status= ['ab','ba','cb','bc'] 
+user_id= ['ab','ba','cb','bc'] 
+ac_contact_id= ['ab','ba','cb','bc']
+first_name= ['ab','ba','cb','bc']
+last_name= ['ab','ba','cb','bc'] 
+ids= [None, None, None, None] 
+emails= ['a@4geeks.co', 'd@gmail.com', 'b@4geeksacademy.com', 'c@gmail.com']
+    
+  
+# dictionary of lists 
+dict = {'phone': ph,'client_comments':cmts,'street_address':adrs,'city':cty,'latitude':ltde,'longitude':lgde,'state':state,
+                  'zip_code':zip,'referral_key':key,'browser_lang':lang,'ac_expected_cohort':ac_cohort,'current_download':download,
+                  'utm_content':utm_content,'storage_status':status,'user_id':user_id,'ac_contact_id':ac_contact_id,
+                  'first_name':first_name,'last_name':last_name, 'ids':ids, 'email':emails} 
 
+#expected input as dataframe
+expected_input = pd.DataFrame(dict)
 
-expected_output = pd.DataFrame({
-    'email': ['a@gmail.com', 'b@gmail.com', 'c@gmail.com', 'd@gmail.com'],
-    # 'utm_source':['ticjob','ticjob','ticjob','ticjob']
-})
+#result values
+output_emails = ['d@gmail.com', 'c@gmail.com']
 
+#expected output
+expected_output = pd.DataFrame({'email':output_emails})
+    
 
 def run(df):
     """
@@ -29,17 +50,17 @@ def run(df):
     It also drops rows that contain 4geeks emails that were used for testing.
     """
 
-    # drop null columns
-    features.drop_null_columns(df)
+    print('Shape before drop_useless ', df.shape)
 
-    # drop irrelevant columns
+    # Drop irrelevant columns
     df.drop(TO_DROP, axis=1, inplace=True)
 
-    # drop testing rows
+    # Drop null columns
+    features.drop_null_columns(df)
+
+    # Drop testing rows
     df = features.drop_test_rows(df)
 
-    # dropping two other test rows identified
-    #df.drop(df[df['utm_source'] == 'test_s'].index, inplace = True)
-    #df.drop(df[df['utm_source'] == 'fintech'].index, inplace = True)
+    print('Shape after drop_useless ', df.shape)
 
     return df
