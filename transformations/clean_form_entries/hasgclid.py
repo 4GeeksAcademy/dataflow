@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from utils import build_features as features
 
 expected_input = [{
     'gclid': 'PAAab8L77tPGqrIXMaKHBN_wUSzd7JLK9jYhkgNhNx3TvULnny_5X7gsQZpi8',

@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from utils import build_features as features
-from utils.constants import TO_DROP
+TO_DROP = ['phone','client_comments','street_address','city','latitude','longitude','state',
+                  'zip_code','referral_key','browser_lang','ac_expected_cohort','current_download','utm_content',
+                  'storage_status','user_id','ac_contact_id','first_name','last_name']
 
 # list of values in columns
 ph= ['ab','ba','cb','bc'] 
@@ -55,10 +56,10 @@ def run(df):
     df.drop(TO_DROP, axis=1, inplace=True)
 
     # Drop null columns
-    features.drop_null_columns(df)
+    df.dropna(axis=1, how='all', inplace=True)
 
     # Drop testing rows
-    df = features.drop_test_rows(df)
+    df = df[df["email"].str.contains("@4geeks") == False]
 
     print('Shape after drop_useless ', df.shape)
 

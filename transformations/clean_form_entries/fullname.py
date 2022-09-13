@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from utils import build_features as features
 
 expected_input = [{
     'first_name': 'Maria',
@@ -24,7 +23,7 @@ def run(df):
     """
 
     #Combine first and last name ignoring nulls
-    features.combine_columns(df, 'first_name', 'last_name', 'fullname')
+    df['fullname'] = df['first_name'].fillna('') + str(' ') + df['last_name'].fillna('')
 
     # shift column 'Fullname' to third position
     fourth_column = df.pop('fullname')

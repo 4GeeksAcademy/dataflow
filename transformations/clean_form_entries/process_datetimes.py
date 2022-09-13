@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from utils import build_features as features
 
 expected_input = [{
     'created_at': '2021-11-21 21:32:04.837967+00:00',
@@ -27,19 +26,19 @@ def run(df):
     It also creates a year-month column and a time column
     """
 
-    features.change_to_datetime(df,'created_at')
-    features.change_to_datetime(df,'updated_at')
-    features.change_to_datetime(df,'won_at')
+    df['created_at'] = df['created_at'].apply(pd.to_datetime)
+    df['updated_at'] = df['updated_at'].apply(pd.to_datetime)
+    df['won_at'] = df['won_at'].apply(pd.to_datetime)
 
     #Changing format
-    features.change_format(df,'created_at')
-    features.change_format(df,'updated_at')
-    features.change_format(df,'won_at')
+    df['created_at'] = df['created_at'].dt.strftime("%Y-%m-%d %H:%M:%S")
+    df['updated_at'] = df['updated_at'].dt.strftime("%Y-%m-%d %H:%M:%S")
+    df['won_at'] = df['won_at'].dt.strftime("%Y-%m-%d %H:%M:%S")
 
     #Format change also changed the column type to object, so we need to convert it to datetime again 
-    features.change_to_datetime(df,'created_at')
-    features.change_to_datetime(df,'updated_at')
-    features.change_to_datetime(df,'won_at')
+    df['created_at'] = df['created_at'].apply(pd.to_datetime)
+    df['updated_at'] = df['updated_at'].apply(pd.to_datetime)
+    df['won_at'] = df['won_at'].apply(pd.to_datetime)
 
     #creating new columns
     df['year-month'] = df['created_at'].dt.strftime('%Y-%m')

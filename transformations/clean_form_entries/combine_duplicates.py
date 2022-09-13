@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-from utils import build_features as features
 
 # list of values in columns
 created_dates= ['2021-11-21','2020-10-20','2018-11-11','2019-12-11']
@@ -29,6 +28,10 @@ def run(df):
     """
 
     # remove duplicated rows by combining them considering the first creation date
-    df = features.remove_duplicates(df)
+    print('shape before combining duplicates: ', df.shape)
+    df = df.replace("Nan", np.nan)
+    df = df.sort_values("created_at")
+    df = df.groupby("email").first().reset_index()
+    print('shape after combining duplicates: ', df.shape)
 
     return df
