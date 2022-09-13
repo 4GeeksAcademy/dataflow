@@ -28,10 +28,10 @@ def run(df):
     """
 
     # remove duplicated rows by combining them considering the first creation date
-    print('shape before combining duplicates: ', df.shape)
+    print('Shape before combining duplicates: ', df.shape)
     df = df.replace("Nan", np.nan)
     df = df.sort_values("created_at")
     df = df.groupby("email").first().reset_index()
-    print('shape after combining duplicates: ', df.shape)
+    print('Shape after combining duplicates: ', df.shape)
 
     return df

@@ -33,4 +33,6 @@ def run(df):
     df.loc[df['tags'] == 'website-lead,blacks-in-technology', 'lead_type'] = 'STRONG'
     df.loc[df['tags'] == 'request_downloadable', 'lead_type'] = 'DISCOVERY'
 
+    print('Confirming lead types assigned: ', df['lead_type'].value_counts())
+
     return df

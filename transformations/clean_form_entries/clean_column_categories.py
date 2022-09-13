@@ -25,6 +25,7 @@ def run(df):
     """
     This function cleans the categories in course, language, location, utm_source and utm_medium columns.
     """
+    print('Shape before cleaning categories ', df.shape)
 
     #Clean course column
     df['course'] = df['course'].replace(['full-stack-ft', 'full_stack', 'full-stack,software-engineering',
