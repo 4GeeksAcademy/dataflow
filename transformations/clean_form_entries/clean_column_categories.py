@@ -90,4 +90,13 @@ def run(df):
     df['utm_medium'] = np.where((df['utm_source'] == 'linkedin') & (df['utm_medium'] == 'Inmail'),
                           'cpc', df['utm_medium'])
 
+    df['utm_medium'] = np.where((df['utm_source'] == 'landingjobs') & (df['utm_medium'].isnull() == True),
+                          'referral', df['utm_medium'])
+
+    df['utm_medium'] = np.where((df['utm_source'] == 'bing') & (df['utm_medium'] == 'cpc'),
+                          'referral', df['utm_medium'])
+
+    df['utm_medium'] = np.where((df['utm_source'] == 'zoho_recruite') & (df['utm_medium'] == 'cpc'),
+                          'referral', df['utm_medium'])
+
     return df
