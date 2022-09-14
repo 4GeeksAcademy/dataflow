@@ -3,3 +3,4 @@ output/*
 sources/*
 !sources/.gitkeep
 !sources/form_entries.csv
+!sources/All_Form_Entries.csv
