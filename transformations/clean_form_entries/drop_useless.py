@@ -60,7 +60,7 @@ def run(df):
 
     # Drop testing rows
     df = df[df["email"].str.contains("@4geeks") == False]
-
+    
     print('Shape after drop_useless ', df.shape)
 
     return df
