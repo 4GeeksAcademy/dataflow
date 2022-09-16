@@ -3,6 +3,7 @@ name: "Lead Collection"
 pipelines:
   - slug: "clean_form_entries"
     transformations:
+    
       - process_datetimes
       - hasgclid
       - fullname
@@ -10,3 +11,4 @@ pipelines:
       - combine_duplicates
       - clean_column_categories
       - assign_lead_type
+    
