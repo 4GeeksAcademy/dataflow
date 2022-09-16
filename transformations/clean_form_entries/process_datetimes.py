@@ -13,9 +13,9 @@ expected_output = [{
     'created_at': pd.to_datetime('2021-11-21 21:32:04'),
     'updated_at': pd.to_datetime('2022-05-26 20:03:15'),
     'won_at': pd.to_datetime('2022-05-26 20:03:09'),
-    'year-month': pd.to_datetime('2021-11-21 21:32:04').strftime('%Y-%m'),
-    'Day': pd.to_datetime('2021-11-21 21:32:04').strftime('%B %d, %Y'),
-    'created_time': pd.to_datetime('2021-11-21 21:32:04').strftime('%H:%M:%S'),
+    'year-month': pd.to_datetime('2021-11'),
+    'Day': pd.to_datetime('2021-11-21'),
+    'created_time': pd.to_datetime('21:32:04'),
     'days_to_convert': 185
 }]
 
@@ -31,12 +31,6 @@ def run(df):
     df['updated_at'] = df['updated_at'].apply(pd.to_datetime)
     df['won_at'] = df['won_at'].apply(pd.to_datetime)
 
-    #creating new columns
-    df['year-month'] = df['created_at'].dt.strftime('%Y-%m')
-    df['Day'] = df['created_at'].dt.strftime('%B %d, %Y')
-    df['created_time'] = df['created_at'].dt.strftime('%H:%M:%S')
-    df['days_to_convert'] = (df['won_at'] - df['created_at']).dt.days.abs()
-    
     #Changing format
     df['created_at'] = df['created_at'].dt.strftime('%Y-%m-%d %H:%M:%S')
     df['updated_at'] = df['updated_at'].dt.strftime('%Y-%m-%d %H:%M:%S')
@@ -46,5 +40,16 @@ def run(df):
     df['created_at'] = df['created_at'].apply(pd.to_datetime)
     df['updated_at'] = df['updated_at'].apply(pd.to_datetime)
     df['won_at'] = df['won_at'].apply(pd.to_datetime)
+
+    #creating new columns
+    df['year-month'] = df['created_at'].dt.strftime('%Y-%m')
+    df['Day'] = df['created_at'].dt.strftime('%Y-%m-%d')
+    df['created_time'] = df['created_at'].dt.strftime('%H:%M:%S')
+    df['days_to_convert'] = (df['won_at'] - df['created_at']).dt.days.abs()
     
+    #convert new columns to datetime
+    df['Day'] = df['Day'].apply(pd.to_datetime)
+    df['year-month'] = df['year-month'].apply(pd.to_datetime)
+    df['created_time'] = df['created_time'].apply(pd.to_datetime)
+
     return df
