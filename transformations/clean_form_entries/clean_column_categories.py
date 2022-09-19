@@ -27,6 +27,7 @@ def run(df):
     """
     print('Shape before cleaning categories ', df.shape)
 
+
     #Clean course column
     df['course'] = df['course'].replace(['full-stack-ft', 'full_stack', 'full-stack,software-engineering',
                                     'coding-introduction', 'outcomes'], 'full-stack')
@@ -37,6 +38,13 @@ def run(df):
     #Clean location column
     df['location'] = df['location'].replace(['maracaibo'], 'maracaibo-venezuela')
     df['location'] = df['location'].replace(['los-cortijos-caracas'], 'caracas-venezuela')
+
+    #Clean academy_id column
+    df['academy_id'] = df['academy_id'].replace(1.0, 2.0)
+    df['academy_id'] = df['academy_id'].replace(45.0, 4.0)
+
+    #Clean country column
+    df['country'] = df['country'].replace('USA' 'United States')
 
 
     #clean language column
