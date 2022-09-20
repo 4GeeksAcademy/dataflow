@@ -5,18 +5,20 @@ from datetime import datetime
 
 expected_input = [{
     'course': 'full-stack-ft',
-    'location': 'los-cortijos-caracas',
+    'location': 'maracaibo',
     'language': 'us',
     'utm_source':'4geeks',
-    'utm_medium':'rrss'
+    'utm_medium':'rrss',
+    'academy_id': 1.0,
 }]
 
 expected_output = [{
     'course': 'full-stack',
-    'location': 'caracas-venezuela',
+    'location': 'maracaibo-venezuela',
     'language': 'en',
     'utm_source': 'ticjob',
-    'utm_medium':'referral'
+    'utm_medium':'referral',
+    'academy_id': 2.0
 }]
 
 
@@ -38,17 +40,21 @@ def run(df):
     #Clean location column
     df['location'] = df['location'].replace(['maracaibo'], 'maracaibo-venezuela')
     df['location'] = df['location'].replace(['los-cortijos-caracas'], 'caracas-venezuela')
-
-    #Clean academy_id column
-    df['academy_id'] = df['academy_id'].replace(1.0, 2.0)
-    df['academy_id'] = df['academy_id'].replace(45.0, 4.0)
-
-    #Clean country column
-    df['country'] = df['country'].replace('USA' 'United States')
+    df['location'] = df['location'].replace(['lisboa-portugal'], 'lisbon-portugal')
 
 
     #clean language column
     df['language'] = df['language'].replace('us', 'en')
+
+    #clean academy_id
+
+    df['academy_id'] = np.where((df['location'] == 'maracaibo-venezuela'),
+                                2.0, df['academy_id'])
+    df['academy_id'] = np.where((df['location'] == 'toronto-canada'),
+                                4.0, df['academy_id'])
+    df['academy_id'] = np.where((df['location'] == 'costa-rica') |
+                                (df['location'] == 'sanjose-uruguay'),
+                                7.0, df['academy_id'])
 
     #clean utm_source
 
@@ -98,8 +104,8 @@ def run(df):
     df['utm_medium'] = np.where((df['utm_source'] == 'linkedin') & (df['utm_medium'] == 'Inmail'),
                           'cpc', df['utm_medium'])
 
-    df['utm_medium'] = np.where((df['utm_source'] == 'landingjobs') & ((df['utm_medium'].isnull() == True) | 
-                                (df['utm_medium'] == 'cpc')), 'referral', df['utm_medium'])
+    df['utm_medium'] = np.where((df['utm_source'] == 'landingjobs'),
+                                'referral', df['utm_medium'])
 
     df['utm_medium'] = np.where((df['utm_source'] == 'careerkarma') & (df['utm_medium'].isnull() == True), 
                           'referral', df['utm_medium'])
