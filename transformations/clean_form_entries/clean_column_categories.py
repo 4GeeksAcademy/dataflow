@@ -116,4 +116,15 @@ def run(df):
     df['utm_medium'] = np.where((df['utm_source'] == 'zoho_recruite') & (df['utm_medium'] == 'cpc'),
                           'referral', df['utm_medium'])
 
+    # change name of null medium
+
+    df['utm_medium'] = np.where((df['utm_source'].isnull() == True) & (df['utm_medium'].isnull() == True),
+                                'undefined & organic', df['utm_medium'])
+
+    # change name of null source
+
+    df['utm_source'] = np.where((df['utm_medium'] == 'undefined & organic'),
+                                'undefined', df['utm_source'])
+
+
     return df
