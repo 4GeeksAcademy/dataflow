@@ -25,6 +25,7 @@ user_id= ['ab','ba','cb','bc']
 ac_contact_id= ['ab','ba','cb','bc']
 first_name= ['ab','ba','cb','bc']
 last_name= ['ab','ba','cb','bc'] 
+storage_st_txt= ['ab','ab','ab','ab']
 ids= [None, None, None, None] 
 emails= ['a@4geeks.co', 'd@gmail.com', 'b@4geeksacademy.com', 'c@gmail.com']
  
@@ -32,7 +33,7 @@ emails= ['a@4geeks.co', 'd@gmail.com', 'b@4geeksacademy.com', 'c@gmail.com']
 dict = {'phone': ph,'client_comments':cmts,'street_address':adrs,'city':cty,'latitude':ltde,'longitude':lgde,'state':state,
                   'zip_code':zip,'referral_key':key,'browser_lang':lang,'ac_expected_cohort':ac_cohort,'current_download':download,
                   'utm_content':utm_content,'storage_status':status,'user_id':user_id,'ac_contact_id':ac_contact_id,
-                  'first_name':first_name,'last_name':last_name, 'ids':ids, 'email':emails} 
+                  'first_name':first_name,'last_name':last_name, 'storage_status_text': storage_st_txt, 'ids':ids, 'email':emails} 
 
 #expected input as dataframe
 expected_input = pd.DataFrame(dict)

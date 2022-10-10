@@ -9,6 +9,7 @@ deepdiff = "*"
 colorama = "*"
 pandas = "*"
 numpy = "*"
+python-slugify = "*"
 
 [dev-packages]
 
