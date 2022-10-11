@@ -10,6 +10,7 @@ expected_input = [{
     'utm_source':'4geeks',
     'utm_medium':'rrss',
     'academy_id': 1.0,
+    'gclid': 'Cj0KCQiAubmPBhCyARIsAJWNpiOwBq3xtBtRHks7SF0NvV'
 }]
 
 expected_output = [{
@@ -18,7 +19,8 @@ expected_output = [{
     'language': 'en',
     'utm_source': 'ticjob',
     'utm_medium':'referral',
-    'academy_id': 2.0
+    'academy_id': 2.0,
+    'gclid': 'Cj0KCQiAubmPBhCyARIsAJWNpiOwBq3xtBtRHks7SF0NvV'
 }]
 
 
@@ -115,6 +117,35 @@ def run(df):
 
     df['utm_medium'] = np.where((df['utm_source'] == 'zoho_recruite') & (df['utm_medium'] == 'cpc'),
                           'referral', df['utm_medium'])
+
+    #Convert null medium in cpc or referral if gclid is not null
+
+    df['utm_medium'] = np.where((df['utm_medium'].isnull()) & (df['gclid'].str.startswith('Cj')), 
+                        'cpc', df['utm_medium'])
+
+    df['utm_medium'] = np.where((df['utm_medium'].isnull()) & (df['gclid'].str.startswith('cl')), 
+                        'referral', df['utm_medium'])
+
+    #convert null source in google according to gclid
+
+    df['utm_source'] = np.where((df['utm_source'].isnull() == True) &
+                        ((df['gclid'].str.startswith('Cj')) | 
+                        (df['gclid'].str.startswith('EA'))),
+                        'google', df['utm_source'])
+
+
+    #convert null source in facebook according to gclid
+
+    df['utm_source'] = np.where((df['utm_source'].isnull() == True) &
+                        (df['gclid'].str.startswith('PAA')),
+                        'facebook', df['utm_source'])
+
+
+    #convert null source in careerkarma according to gclid
+
+    df['utm_source'] = np.where((df['utm_source'].isnull() == True) &
+                        (df['gclid'].str.startswith('cl')),
+                        'careerkarma', df['utm_source'])
 
     # change name of null medium
 
