@@ -2,12 +2,12 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
-TO_DROP = ['phone','client_comments','street_address','city','latitude','longitude','state',
+TO_DROP = ['client_comments','street_address','city','latitude','longitude','state',
                   'zip_code','referral_key','browser_lang','ac_expected_cohort','current_download','utm_content',
                   'storage_status','user_id','ac_contact_id','first_name','last_name','storage_status_text']
 
 # list of values in columns
-ph= ['ab','ba','cb','bc'] 
+
 cmts= ['ab','ba','cb','bc'] 
 adrs= ['ab','ba','cb','bc'] 
 cty= ['ab','ba','cb','bc'] 
@@ -30,7 +30,7 @@ ids= [None, None, None, None]
 emails= ['a@4geeks.co', 'd@gmail.com', 'b@4geeksacademy.com', 'c@gmail.com']
  
 # dictionary of lists 
-dict = {'phone': ph,'client_comments':cmts,'street_address':adrs,'city':cty,'latitude':ltde,'longitude':lgde,'state':state,
+dict = {'client_comments':cmts,'street_address':adrs,'city':cty,'latitude':ltde,'longitude':lgde,'state':state,
                   'zip_code':zip,'referral_key':key,'browser_lang':lang,'ac_expected_cohort':ac_cohort,'current_download':download,
                   'utm_content':utm_content,'storage_status':status,'user_id':user_id,'ac_contact_id':ac_contact_id,
                   'first_name':first_name,'last_name':last_name, 'storage_status_text': storage_st_txt, 'ids':ids, 'email':emails} 
