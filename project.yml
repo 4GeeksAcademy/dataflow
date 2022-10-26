@@ -11,5 +11,6 @@ pipelines:
       - combine_duplicates
       - clean_column_categories
       - assign_lead_type
+      - phone_country_column
       - correct_location_column
     
