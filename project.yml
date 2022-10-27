@@ -2,6 +2,9 @@
 name: "Lead Collection"
 pipelines:
   - slug: "clean_form_entries"
+    sources:
+      - heroku-form-entry
+    destination: bigquery-form-entry
     transformations:
     
       - process_datetimes
