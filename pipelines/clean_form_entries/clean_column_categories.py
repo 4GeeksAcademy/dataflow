@@ -76,7 +76,9 @@ def run(df):
                                 (df['utm_medium'] == 'Instagram_Feed'),
                                 'instagram', df['utm_source'])
 
-    df['utm_source'] = np.where((df['utm_medium'] == 'Facebook_Mobile_Feed'),
+    df['utm_source'] = np.where((df['utm_medium'] == 'Facebook_Mobile_Feed') |
+                                (data['utm_medium'] == 'Facebook_Instream_Video') |
+                                (data['utm_source'] == 'meta'),
                                 'facebook', df['utm_source'])
 
     #2 clean utm source column
@@ -98,8 +100,8 @@ def run(df):
     #clean utm_medium
     df['utm_medium'] = df['utm_medium'].replace(['schoolpage', 'coursereportschoolpage', 'schoolpage?utm_source=careerkarma',
                                     'Blog', 'affiliate_email', 'rrss', 'inscripcion', 'event'], 'referral')
-    df['utm_medium'] = df['utm_medium'].replace(['ppc', 'FB paid', 'Facebook_Mobile_Feed', 'Instagram_Stories', 'Instagram_Feed'],
-                                    'cpc')
+    df['utm_medium'] = df['utm_medium'].replace(['ppc', 'FB paid', 'Facebook_Mobile_Feed', 'Instagram_Stories', 'Instagram_Feed',
+                                    'Facebook_Instream_Video'],'cpc')
     df['utm_medium'] = np.where((df['utm_source'] == 'linkedin') & (df['utm_medium'] == 'social'),
                           'cpc', df['utm_medium'])
 

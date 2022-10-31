@@ -11,6 +11,7 @@ pipelines:
       - hasgclid
       - fullname
       - drop_useless
+      - drop_test_rows
       - combine_duplicates
       - clean_column_categories
       - assign_lead_type
