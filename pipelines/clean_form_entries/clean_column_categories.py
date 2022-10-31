@@ -77,8 +77,8 @@ def run(df):
                                 'instagram', df['utm_source'])
 
     df['utm_source'] = np.where((df['utm_medium'] == 'Facebook_Mobile_Feed') |
-                                (data['utm_medium'] == 'Facebook_Instream_Video') |
-                                (data['utm_source'] == 'meta'),
+                                (df['utm_medium'] == 'Facebook_Instream_Video') |
+                                (df['utm_source'] == 'meta'),
                                 'facebook', df['utm_source'])
 
     #2 clean utm source column

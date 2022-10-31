@@ -43,7 +43,7 @@ def get_params():
 
 def scan_for_pipelines():
     piplines = []
-    dir_path = os.path.dirname(os.path.realpath(__file__)) + '/../transformations'
+    dir_path = os.path.dirname(os.path.realpath(__file__)) + '/../pipelines'
     files = os.listdir(dir_path)
     for f in files:
         if os.path.isdir(dir_path+"/"+f): 
@@ -54,7 +54,7 @@ def scan_for_pipelines():
 def scan_pipeline_transformations(pipeline_name):
     transformations = []
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    files = os.listdir(dir_path + '/../transformations/' + pipeline_name)
+    files = os.listdir(dir_path + '/../pipelines/' + pipeline_name)
     for file_name in files:
         if '.py' not in file_name:
             continue
@@ -66,7 +66,7 @@ def scan_pipeline_transformations(pipeline_name):
 
 def get_transformation(pipeline_name, transformation):
     try:
-        mod = import_module('transformations.' +
+        mod = import_module('pipelines.' +
                             pipeline_name + '.' + transformation)
     except ModuleNotFoundError as e:
         raise Exception(f'Transformation does not exist:' +
