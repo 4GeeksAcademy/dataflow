@@ -74,8 +74,29 @@ def run(df):
         elif str(row.phone_country) in LATAM_COUNTRIES: 
             correct_location.append('online')
         elif str(row.phone_country) in EUROPE_COUNTRIES:  
-            correct_location.append('europe')        
-        else:           
+            correct_location.append('europe')
+
+        elif str(row.phone_country) not in ['Error from invalid phone','No country assigned']:
+            correct_location.append('No location assigned')   
+
+        elif str(row.country) in str(row.location):    
+            correct_location.append(row.location)
+        elif str(row.country) in str('united-states'):    
+            correct_location.append('downtown-miami')
+        elif str(row.country) in LATAM_COUNTRIES and (v for v in LATAM_LOCATIONS if str(row.country) in v):  
+            latam_search = str(row.country)
+            latam_match = list(filter(lambda x: latam_search in x, LATAM_LOCATIONS))
+            correct_location.append(latam_match)
+        elif str(row.country) in EUROPE_COUNTRIES and str(row.country) in EUROPE_LOCATIONS:
+            europe_search = str(row.country)
+            europe_match = list(filter(lambda x: europe_search in x, EUROPE_LOCATIONS))
+            correct_location.append(europe_match)
+        elif str(row.country) in LATAM_COUNTRIES: 
+            correct_location.append('online')
+        elif str(row.country) in EUROPE_COUNTRIES:  
+            correct_location.append('europe')
+            
+        else:
             correct_location.append('No location assigned')
 
     #create new column with the values of correct_location list
