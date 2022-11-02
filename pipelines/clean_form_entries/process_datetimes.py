@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from datetime import datetime
+import datetime
 
 
 expected_input = [{
@@ -15,7 +15,7 @@ expected_output = [{
     'won_at': pd.to_datetime('2022-05-26 20:03:09'),
     'year-month': pd.to_datetime('2021-11'),
     'Day': pd.to_datetime('2021-11-21'),
-    'created_time': pd.to_datetime('21:32:04'),
+    'created_timestamp': 1637530324.0,
     'days_to_convert': 185
 }]
 
@@ -41,15 +41,15 @@ def run(df):
     df['updated_at'] = df['updated_at'].apply(pd.to_datetime)
     df['won_at'] = df['won_at'].apply(pd.to_datetime)
 
-    #creating new columns
+    #Creating useful columns from created_at
+
     df['year-month'] = df['created_at'].dt.strftime('%Y-%m')
     df['Day'] = df['created_at'].dt.strftime('%Y-%m-%d')
-    df['created_time'] = df['created_at'].dt.strftime('%H:%M:%S')
+    df['created_timestamp'] = pd.to_datetime(df['created_at']).apply(lambda a: a.timestamp())
     df['days_to_convert'] = (df['won_at'] - df['created_at']).dt.days.abs()
-    
+
     #convert new columns to datetime
     df['Day'] = df['Day'].apply(pd.to_datetime)
     df['year-month'] = df['year-month'].apply(pd.to_datetime)
-    df['created_time'] = df['created_time'].apply(pd.to_datetime)
 
     return df
