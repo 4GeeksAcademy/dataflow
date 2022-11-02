@@ -70,7 +70,7 @@ def run(df):
                                 (df['utm_source'] == 'Business Manager IG') |
                                 (df['utm_source'] == 'Instagram_Feed') |
                                 (df['utm_source'] == 'Instagram_Stories'),
-                                'cpc', df['utm_medium'])
+                                'ppc', df['utm_medium'])
 
     df['utm_source'] = np.where((df['utm_medium'] == 'Instagram_Stories') |
                                 (df['utm_medium'] == 'Instagram_Feed'),
@@ -88,8 +88,7 @@ def run(df):
                                     'landingjobs?utm_medium=full-stack', 'landingjobs?utm_medium=RRSS'],
                                     'landingjobs')
     df['utm_source'] = df['utm_source'].replace('google_ads', 'google')
-    df['utm_source'] = df['utm_source'].replace(
-        ['Business Manager IG', 'Instagram_Feed', 'ig', 'Instagram_Stories'], 'instagram')
+    df['utm_source'] = df['utm_source'].replace(['Business Manager IG', 'Instagram_Feed', 'ig', 'Instagram_Stories'], 'instagram')
     df['utm_source'] = df['utm_source'].replace(['Facebook', 'Facebook ads', 'Facebook_Marketplace', 'Facebook_Mobile_Feed',
                                     'facebook_instagram', 'fb', 'an', 'facebook_awareness', 'Facebook_Stories',
                                      'Facebook_Desktop_Feed'], 'facebook')
@@ -100,13 +99,13 @@ def run(df):
     #clean utm_medium
     df['utm_medium'] = df['utm_medium'].replace(['schoolpage', 'coursereportschoolpage', 'schoolpage?utm_source=careerkarma',
                                     'Blog', 'affiliate_email', 'rrss', 'inscripcion', 'event'], 'referral')
-    df['utm_medium'] = df['utm_medium'].replace(['ppc', 'FB paid', 'Facebook_Mobile_Feed', 'Instagram_Stories', 'Instagram_Feed',
-                                    'Facebook_Instream_Video'],'cpc')
+    df['utm_medium'] = df['utm_medium'].replace(['cpc', 'FB paid', 'Facebook_Mobile_Feed', 'Instagram_Stories', 'Instagram_Feed',
+                                    'Facebook_Instream_Video'],'ppc')
     df['utm_medium'] = np.where((df['utm_source'] == 'linkedin') & (df['utm_medium'] == 'social'),
-                          'cpc', df['utm_medium'])
+                          'ppc', df['utm_medium'])
 
     df['utm_medium'] = np.where((df['utm_source'] == 'linkedin') & (df['utm_medium'] == 'Inmail'),
-                          'cpc', df['utm_medium'])
+                          'ppc', df['utm_medium'])
 
     df['utm_medium'] = np.where((df['utm_source'] == 'landingjobs'),
                                 'referral', df['utm_medium'])
@@ -115,15 +114,15 @@ def run(df):
                           'referral', df['utm_medium'])
 
     df['utm_medium'] = np.where((df['utm_source'] == 'facebook') & (df['utm_medium'].isnull() == True),
-                          'cpc', df['utm_medium'])
+                          'ppc', df['utm_medium'])
 
-    df['utm_medium'] = np.where((df['utm_source'] == 'zoho_recruite') & (df['utm_medium'] == 'cpc'),
+    df['utm_medium'] = np.where((df['utm_source'] == 'zoho_recruite') & (df['utm_medium'] == 'ppc'),
                           'referral', df['utm_medium'])
 
     #Convert null medium in cpc or referral if gclid is not null
 
     df['utm_medium'] = np.where((df['utm_medium'].isnull()) & (df['gclid'].str.startswith('Cj')), 
-                        'cpc', df['utm_medium'])
+                        'ppc', df['utm_medium'])
 
     df['utm_medium'] = np.where((df['utm_medium'].isnull()) & (df['gclid'].str.startswith('cl')), 
                         'referral', df['utm_medium'])
@@ -157,7 +156,7 @@ def run(df):
     # change name of null source
 
     df['utm_source'] = np.where((df['utm_medium'] == 'undefined & organic'),
-                                'undefined', df['utm_source'])
+                                'undefined & organic', df['utm_source'])
 
 
     return df
