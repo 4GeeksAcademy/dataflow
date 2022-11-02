@@ -4,18 +4,18 @@ from datetime import datetime
 from slugify import slugify
 
 
-expected_input = [{
-    'country': 'Venezuela',
-    'phone_country': 'Peru',
-    'location': 'caracas-venezuela'
-}]
+expected_input = pd.DataFrame({
+    'country': ['Venezuela','United States','nan','Colombia'],
+    'phone_country': ['Peru','Congo','Congo','Error from invalid phone'],
+    'location': ['caracas-venezuela','downtown-miami','downtown-miami','caracas-venezuela']
+})
 
-expected_output = [{
-    'country': 'venezuela',
-    'phone_country': 'peru',
-    'location': 'caracas-venezuela',
-    'correct_location': 'lima-peru'
-}]
+expected_output = pd.DataFrame({
+    'country': ['venezuela','united-states', 'nan','colombia'],
+    'phone_country': ['peru','congo','congo','error-from-invalid-phone'],
+    'location': ['caracas-venezuela','downtown-miami','downtown-miami','caracas-venezuela'],
+    'correct_location': ['lima-peru','downtown-miami','No location assigned','bogota-colombia']
+})
     
 
 def run(df):
@@ -59,45 +59,35 @@ def run(df):
     correct_location = []
 
     for row in df.itertuples(index=False):
-        if str(row.phone_country) in str(row.location):    
-            correct_location.append(row.location)
-        elif str(row.phone_country) in str('united-states'):    
-            correct_location.append('downtown-miami')
-        elif str(row.phone_country) in LATAM_COUNTRIES and (v for v in LATAM_LOCATIONS if str(row.phone_country) in v):  
-            latam_search = str(row.phone_country)
-            latam_match = list(filter(lambda x: latam_search in x, LATAM_LOCATIONS))
-            correct_location.append(latam_match)
-        elif str(row.phone_country) in EUROPE_COUNTRIES and str(row.phone_country) in EUROPE_LOCATIONS:
-            europe_search = str(row.phone_country)
-            europe_match = list(filter(lambda x: europe_search in x, EUROPE_LOCATIONS))
-            correct_location.append(europe_match)
-        elif str(row.phone_country) in LATAM_COUNTRIES: 
-            correct_location.append('online')
-        elif str(row.phone_country) in EUROPE_COUNTRIES:  
-            correct_location.append('europe')
+        def compare_with(target_phone):
+            if str(target_phone) in str(row.location):    
+                return row.location
+            elif str(target_phone) in str('united-states'):    
+                return 'downtown-miami'
+            elif str(target_phone) in LATAM_COUNTRIES and (v for v in LATAM_LOCATIONS if str(target_phone) in v):  
+                latam_search = str(target_phone)
+                latam_match = list(filter(lambda x: latam_search in x, LATAM_LOCATIONS))
+                return latam_match
+            elif str(target_phone) in EUROPE_COUNTRIES and str(target_phone) in EUROPE_LOCATIONS:
+                europe_search = str(target_phone)
+                europe_match = list(filter(lambda x: europe_search in x, EUROPE_LOCATIONS))
+                return europe_match
+            elif str(target_phone) in LATAM_COUNTRIES: 
+                return 'online'
+            elif str(target_phone) in EUROPE_COUNTRIES:  
+                return 'europe'
+            return None
 
-        elif str(row.phone_country) not in ['Error from invalid phone','No country assigned']:
-            correct_location.append('No location assigned')   
+        location = compare_with(row.phone_country) if str(row.phone_country) not in ['Error from invalid phone','No country assigned'] else None
+        if  location is not None:
+            correct_location.append(location)
+            continue
 
-        elif str(row.country) in str(row.location):    
-            correct_location.append(row.location)
-        elif str(row.country) in str('united-states'):    
-            correct_location.append('downtown-miami')
-        elif str(row.country) in LATAM_COUNTRIES and (v for v in LATAM_LOCATIONS if str(row.country) in v):  
-            latam_search = str(row.country)
-            latam_match = list(filter(lambda x: latam_search in x, LATAM_LOCATIONS))
-            correct_location.append(latam_match)
-        elif str(row.country) in EUROPE_COUNTRIES and str(row.country) in EUROPE_LOCATIONS:
-            europe_search = str(row.country)
-            europe_match = list(filter(lambda x: europe_search in x, EUROPE_LOCATIONS))
-            correct_location.append(europe_match)
-        elif str(row.country) in LATAM_COUNTRIES: 
-            correct_location.append('online')
-        elif str(row.country) in EUROPE_COUNTRIES:  
-            correct_location.append('europe')
-            
-        else:
-            correct_location.append('No location assigned')
+        if location:= compare_with(row.country):
+            correct_location.append(location)
+            continue
+        
+        correct_location.append('No location assigned')
 
     #create new column with the values of correct_location list
 

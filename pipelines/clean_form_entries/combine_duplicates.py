@@ -28,6 +28,7 @@ def run(df):
     """
 
     # remove duplicated rows by combining them considering the first creation date
+    print('dataframe', df)
     print('Shape before combining duplicates: ', df.shape)
     df = df.replace("Nan", np.nan)
     df = df.sort_values("created_at")
