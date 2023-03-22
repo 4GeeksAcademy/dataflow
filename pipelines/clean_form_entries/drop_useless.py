@@ -4,7 +4,7 @@ from datetime import datetime
 
 TO_DROP = ['client_comments','street_address','city','latitude','longitude','state',
                   'zip_code','referral_key','browser_lang','ac_expected_cohort','current_download','utm_content',
-                  'storage_status','user_id','ac_contact_id','first_name','last_name','storage_status_text']
+                  'user_id','ac_contact_id','first_name','last_name','storage_status_text']
 
 expected_input = [{
     'client_comments':'ab',
@@ -29,6 +29,7 @@ expected_input = [{
 }]
 
 expected_output = [{
+    'storage_status':'ab',
     'email':'d@gmail.com'
 }]
 
